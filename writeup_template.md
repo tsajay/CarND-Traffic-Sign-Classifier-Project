@@ -78,10 +78,6 @@ Please see the above section. I did augment my data with shifts in the images by
 
 I chose LeNet as the basis of my neural network for training with the following modifications to the network. I added one extra convolution layer and one extra fully-connected layer. I felt this is required since LeNet was designed to recognize digits, so the neural network is mostly required to detect edges and curves, but not more complex shapes as required for the traffic signs dataset. Also, the rationale for choosing LeNet was that the 32x32 images in this set matched closely with what LeNet was designed for (28x28 images). I changed a few parameters in my network in the fully-connected layers to accomodate for native 32x32 image sizes.
 
-# After various experimentation, batch size of 128 still was useful
-# 40 batches was enough for convergence in all cases.
-# Ran the program 25 times and it managed to reach convergence all times.
-# We do shuffle the data and augment it with random shifts. 
 
 ![Original image][image3]
 
@@ -114,30 +110,26 @@ My final model consisted of the following layers:
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
+After various experimentation, batch size of 128 still was useful. The general trend was that the training accuracy increased with smaller batch sizes, but it did not affect test accuracy by much. The downside of smaller batch sizes was the longer training times as well. 
 
-To train the model, I used an ....
+Training for 40 epochs was enough for convergence in all cases. My network consistently achieved derised accuracy for test-set over 25 runs. Note that the input is randomzied. 
 
 ####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 95.8%
+* validation set accuracy of 95.8% for the final epoch (started from 90.8% accuracy for the first epoch)
+* test set accuracy of 94.0%
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+Raw LeNet did not have enough discriminatory power for complex images. I had to add more layers in the convolution output. I also added more fully connected layers to be able to detect more complex shapes than numbers. I had to adjust the parameters to account for a 32x32 image rather than 28x28 image. For example, some of the FC layer parameters in original LeNet were determined by 28(width of image)x3 = 84, I had to change them to 96.
 * Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
-
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
+In addition, I changed the number of epochs to 40 for consistent training convergence. My best guess is that this helped the training get over some local minima. 
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+With random augmentations of the image data, we are providing a slightly different dataset each time to the training network. Still, my network always converges, and has an accuracy of over 93% on the test dataset. I can conclude with fair degree of confidence that the parameters chosen for the network are working. 
  
 
 ###Test a Model on New Images
@@ -149,8 +141,6 @@ Here are five German traffic signs that I found on the web:
 ![alt text][image4] ![alt text][image5] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8]
 
-The first image might be difficult to classify because ...
-
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
@@ -159,28 +149,35 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Road work      		| Road work   									| 
+| Right-of-way at the next intersection     			| Right-of-way at the next intersection 										|
+| Stop					| Stop											|
+| Speed limit (60km/h)	      		| Speed limit (60km/h)					 				|
+| Yield			| Yield      							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess all traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 94%. I don't expect this 100% accuracy on a larger set of downloaded images. 
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+First image:
+Top 5 predictions        : Road work, Double curve, Right-of-way at the next intersection, General caution, Turn right ahead
+Prediction (Idx: 25)     : Road work 
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+First image:
+Top 5 predictions        : Right-of-way at the next intersection, Vehicles over 3.5 metric tons prohibited, Turn right ahead, Beware of ice/snow, End of all speed and passing limits
+Prediction (Idx: 11)     : Right-of-way at the next intersection 
 
+First image:
+Top 5 predictions        : Stop, Turn left ahead, Turn right ahead, Ahead only, Speed limit (60km/h)
+Prediction (Idx: 14)     : Stop 
 
-For the second image ... 
+First image:
+Top 5 predictions        : Speed limit (60km/h), Speed limit (80km/h), Children crossing, Go straight or right, End of speed limit (80km/h)
+Prediction (Idx:  3)     : Speed limit (60km/h) 
+
+First image:
+Top 5 predictions        : Yield, Turn left ahead, Children crossing, No passing, Traffic signals
+Prediction (Idx: 13)     : Yield 
