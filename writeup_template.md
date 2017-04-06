@@ -1,8 +1,6 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
 
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -13,20 +11,20 @@ The goals / steps of this project are the following:
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
+* Analyze the softmax probabilities of t**strong text**he new images
 * Summarize the results with a written report
 
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
+[image1]: ./data_vis.jpg "Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image4]: ./img1.jpg "Road work"
+[image5]: ./img2.jpg "Right-of-way at the next intersection"
+[image6]: ./img3.jpg "Stop"
+[image7]: ./img4.jpg "Speed limit (60km/h)"
+[image8]: ./img5.jpg "Yield"
 
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -36,7 +34,7 @@ The goals / steps of this project are the following:
 
 ####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/tsajay/CarND-Traffic-Sign-Classifier-Project/)
 
 ###Data Set Summary & Exploration
 
@@ -47,10 +45,10 @@ The code for this step is contained in the second code cell of the IPython noteb
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
 
-* The size of training set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is 34799 original images. With data augmentation, my training set had a total of 69598 images. (more below)
+* The size of test set is 12630
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
 
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
@@ -58,19 +56,18 @@ The code for this step is contained in the third code cell of the IPython notebo
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+![Visualization][image1]
 
 ###Design and Test a Model Architecture
 
-####1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
+####1. Describe how, and identify where in your code, you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
 
-The code for this step is contained in the fourth code cell of the IPython notebook.
+The first step in my processing pipeline is to augment the existing images with random shifts of 1-pixel in one of the four directions - up, down, left, or right. I did this by padding the image with zeros in the edges. Note that this step was added after I found my existing dataset to be a bit small to consistently achieve the desired accuracy. Also, this is one of the techniques I read about in the landmark paper by [Hinton, et.al](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks). That paper rotates images laterally, but for traffic signs, you need to recognize text, and probably signs like "turn left". Hence rotation is not a technique that can be applied here. Shifts should still preserve most of the data required to classify the image.
 
-As a first step, I decided to convert the images to grayscale because ...
+Next, I converted the image to grayscale. Once I obtain the mean and standard deviation of the pixel values across all images, I normalized each image. This is another technique from the paper mentioned above.
 
-Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][image2]
+![Visualization][image2]
 
 As a last step, I normalized the image data because ...
 
@@ -86,7 +83,7 @@ The sixth code cell of the IPython notebook contains the code for augmenting the
 
 Here is an example of an original image and an augmented image:
 
-![alt text][image3]
+![Original image][image3]
 
 The difference between the original data set and the augmented data set is the following ... 
 
