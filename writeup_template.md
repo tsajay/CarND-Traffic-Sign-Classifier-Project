@@ -18,8 +18,8 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./data_vis.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
+[image2]: ./original_sample.jpg "Original image"
+[image3]: ./gray_sample.jpg "Grayed out normalized image"
 [image4]: ./img1.jpg "Road work"
 [image5]: ./img2.jpg "Right-of-way at the next intersection"
 [image6]: ./img3.jpg "Stop"
@@ -66,22 +66,22 @@ The first step in my processing pipeline is to augment the existing images with 
 
 Next, I converted the image to grayscale. Once I obtain the mean and standard deviation of the pixel values across all images, I normalized each image. This is another technique from the paper mentioned above.
 
+Normalization is a required step for most machine learning algorithms to accelerate convergence. 
 
-![Visualization][image2]
+![Original Sample][image2]
+![Gray Sample][image2]
 
-As a last step, I normalized the image data because ...
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
-The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.  
+Please see the above section. I did augment my data with shifts in the images by 1-pixel. This was after I found that 35K images are not enough to consistently converge to the desired accuracy.
 
-To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
+I chose LeNet as the basis of my neural network for training with the following modifications to the network. I added one extra convolution layer and one extra fully-connected layer. I felt this is required since LeNet was designed to recognize digits, so the neural network is mostly required to detect edges and curves, but not more complex shapes as required for the traffic signs dataset. Also, the rationale for choosing LeNet was that the 32x32 images in this set matched closely with what LeNet was designed for (28x28 images). I changed a few parameters in my network in the fully-connected layers to accomodate for native 32x32 image sizes.
 
-My final training set had X number of images. My validation set and test set had Y and Z number of images.
-
-The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because ... To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
+# After various experimentation, batch size of 128 still was useful
+# 40 batches was enough for convergence in all cases.
+# Ran the program 25 times and it managed to reach convergence all times.
+# We do shuffle the data and augment it with random shifts. 
 
 ![Original image][image3]
 
@@ -97,14 +97,18 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x12 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x12 				|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 5x5x16 	|
+| Fully connected		| 400x240        									|
+| RELU					|												|
+| Fully connected		| 240x160        									|
+| RELU					|												|
+| Fully connected		| 160x96        									|
+| RELU					|												|
+| Fully connected		| 96 x n_classes        									|
+| Softmax				| Probabilities of various classes.        									|
  
 
 
