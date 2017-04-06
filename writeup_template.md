@@ -11,7 +11,7 @@ The goals / steps of this project are the following:
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
-* Analyze the softmax probabilities of t**strong text**he new images
+* Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
 
@@ -69,7 +69,7 @@ Next, I converted the image to grayscale. Once I obtain the mean and standard de
 Normalization is a required step for most machine learning algorithms to accelerate convergence. 
 
 ![Original Sample][image2]
-![Gray Sample][image2]
+![Gray Sample][image3]
 
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
@@ -78,8 +78,6 @@ Please see the above section. I did augment my data with shifts in the images by
 
 I chose LeNet as the basis of my neural network for training with the following modifications to the network. I added one extra convolution layer and one extra fully-connected layer. I felt this is required since LeNet was designed to recognize digits, so the neural network is mostly required to detect edges and curves, but not more complex shapes as required for the traffic signs dataset. Also, the rationale for choosing LeNet was that the 32x32 images in this set matched closely with what LeNet was designed for (28x28 images). I changed a few parameters in my network in the fully-connected layers to accomodate for native 32x32 image sizes.
 
-
-![Original image][image3]
 
 The difference between the original data set and the augmented data set is the following ... 
 
