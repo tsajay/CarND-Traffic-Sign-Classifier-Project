@@ -117,9 +117,9 @@ Training for 40 epochs was enough for convergence in all cases. My network consi
 The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of 95.8%
-* validation set accuracy of 95.8% for the final epoch (started from 90.8% accuracy for the first epoch)
-* test set accuracy of 94.0%
+* training set accuracy of 96.67% (was 95.8% for the first submission)
+* validation set accuracy of 96.67% for the final epoch (started from 88.21% accuracy for the first epoch)
+* test set accuracy of 94.1% (was 94.0% for my first submission)
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
@@ -154,7 +154,7 @@ Here are the results of the prediction:
 | Yield			| Yield      							|
 
 
-UPDATE: This is my second submission, mostly for my program to print the softmax probabilities. The model was able to correctly guess 80% of the downloaded signs. I downloaded 10 other images and my network was able to correctly guess all of them. I am not changing the test image from my first submission just for consistency. Also, here's a reason why the network is converging to a traffic sign. The training set is in monochromatic gray color. There's a fairly large circular blob in the image, which can confuse the network into thinking that it's a traffic sign. Nice learning experience (for my network and for me).
+UPDATE: This is my second submission, mostly for my program to print the softmax probabilities. The model was able to correctly guess 80% of the downloaded signs. I downloaded 10 other images and my network was able to correctly guess all of them. I am not changing the test image from my first submission just for consistency. Also, here's a reason why the network is converging to a traffic sign. The training set is in monochromatic gray color. There's a fairly large circular blob in the image, which can confuse the network into thinking that it's a traffic sign. Nice learning experience (for my network and for me). I learnt that my network is converging to a certain class for a given image with very high degree of confidence.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
