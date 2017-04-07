@@ -147,35 +147,36 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Road work      		| Road work   									| 
+| Road work      		| Traffic signals   									| 
 | Right-of-way at the next intersection     			| Right-of-way at the next intersection 										|
 | Stop					| Stop											|
 | Speed limit (60km/h)	      		| Speed limit (60km/h)					 				|
 | Yield			| Yield      							|
 
 
-The model was able to correctly guess all traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 94%. I don't expect this 100% accuracy on a larger set of downloaded images. 
+UPDATE: This is my second submission, mostly for my program to print the softmax probabilities. The model was able to correctly guess 80% of the downloaded signs. I downloaded 10 other images and my network was able to correctly guess all of them. I am not changing the test image from my first submission just for consistency. Also, here's a reason why the network is converging to a traffic sign. The training set is in monochromatic gray color. There's a fairly large circular blob in the image, which can confuse the network into thinking that it's a traffic sign. Nice learning experience (for my network and for me).
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
 First image:
-Top 5 predictions        : Road work, Double curve, Right-of-way at the next intersection, General caution, Turn right ahead
-Prediction (Idx: 25)     : Road work 
+Top 5 predictions        : Traffic signals, General caution, Right-of-way at the next intersection, Go straight or left, Turn right ahead
+Prediction (Idx: 26)     : Traffic signals 
 
-First image:
-Top 5 predictions        : Right-of-way at the next intersection, Vehicles over 3.5 metric tons prohibited, Turn right ahead, Beware of ice/snow, End of all speed and passing limits
+
+Second image:
+Top 5 predictions        : Right-of-way at the next intersection, Pedestrians, Roundabout mandatory, Speed limit (20km/h), Speed limit (30km/h)
 Prediction (Idx: 11)     : Right-of-way at the next intersection 
 
-First image:
-Top 5 predictions        : Stop, Turn left ahead, Turn right ahead, Ahead only, Speed limit (60km/h)
+Third image:
+Top 5 predictions        : Stop, Yield, No entry, Speed limit (30km/h), Bumpy road
 Prediction (Idx: 14)     : Stop 
 
-First image:
-Top 5 predictions        : Speed limit (60km/h), Speed limit (80km/h), Children crossing, Go straight or right, End of speed limit (80km/h)
+Fourth image:
+Top 5 predictions        : Speed limit (60km/h), Dangerous curve to the left, Wild animals crossing, Speed limit (50km/h), Slippery road
 Prediction (Idx:  3)     : Speed limit (60km/h) 
 
-First image:
-Top 5 predictions        : Yield, Turn left ahead, Children crossing, No passing, Traffic signals
+Fifth image:
+Top 5 predictions        : Yield, Speed limit (20km/h), Speed limit (30km/h), Speed limit (50km/h), Speed limit (60km/h)
 Prediction (Idx: 13)     : Yield 
